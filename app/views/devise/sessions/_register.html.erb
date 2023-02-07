@@ -1,0 +1,28 @@
+<div class="text-center mb-3">
+    <p>Sign-up with:</p>
+    <button type="button" class="btn btn-link mx-1">
+        <i class="bi bi-facebook"></i>
+    </button>
+    <button type ="button" class="btn btn-link mx-1">
+        <i class="bi bi-google"></i>
+    </button>
+    <button type="button" class="btn btn-link mx-1">
+        <i class="bi bi-twitter"></i>
+    </button>
+</div>
+<p class="text-center">or:</p>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="mb-4">
+    <!-- Name Input -->
+        <%= f.text_field :name, class: "form-control mb-4 w-100", autofocus: true, placeholder: "Name" %>
+    <!-- Email Input -->
+        <%= f.email_field :email, class: "form-control mb-4 w-100", autofocus: true, autocomplete: "email", placeholder: "E-mail" %>
+    <!-- Password Input -->
+        <%= f.password_field :password, class: "form-control mb-4 w-100", autocomplete: "new-password", placeholder: "Password" %>
+    <!-- Password Conform -->
+        <%= f.password_field :password_confirmation, class: "form-control mb-4 w-100", autocomplete: "new-password", placeholder: "Confirm Password" %>
+    </div>
+    <!-- Submit button -->
+    <%= f.submit "Sign-up", class: "btn btn-primary btn-block mb-4 w-100" %>
+<% end %>

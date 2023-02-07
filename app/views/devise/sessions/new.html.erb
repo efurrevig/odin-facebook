@@ -1,58 +1,25 @@
-<div class="min-vh-100 d-flex align-items-center">
+<div data-controller="toggle" class="min-vh-100 d-flex align-items-center">
   <div class="login container shadow p-3 mb-5 rounded">
     <!-- Sign-in, Register toggle -->
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="tab-login">Login</button>
+        <button data-action="click->toggle#displayLogin" class="nav-link active" id="tab-login">Login</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tab-register">Register</button>
+        <button data-action="click->toggle#displayRegister" class="nav-link" id="tab-register">Register</button>
       </li>
     </ul>
     <!-- OmniAuth Links -->
-    <div class="text-center mb-3">
-      <p>Sign-in with:</p>
-      <button type="button" class="btn btn-link mx-1">
-        <i class="bi bi-facebook"></i>
-      </button>
-      <button type ="button" class="btn btn-link mx-1">
-        <i class="bi bi-google"></i>
-      </button>
-      <button type="button" class="btn btn-link mx-1">
-        <i class="bi bi-twitter"></i>
-      </button>
+    <div data-toggle-target="login">
+      <%= render "login" %>
     </div>
-    <p class="text-center">or:</p>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="mb-4">
-        <!-- Email Input -->
-          <%= f.email_field :email, class: "form-control mb-4 w-100", autofocus: true, autocomplete: "email", placeholder: "E-mail" %>
-        <!-- Password Input -->
-          <%= f.password_field :password, class: "form-control mb-4 w-100", autocomplete: "current-password", placeholder: "Password" %>
-      </div>
-      <!-- Remember me checkbox && Password Recovery -->
-      <div class="row mb-4">
-        <% if devise_mapping.rememberable? %>
-          <div class="col-md-6">
-            <div class="form-check mb-3 mb-md-0">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </div>
-          </div>
-        <% end %>
-          <div class="col-md-6">
-            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-              <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-            <% end %>
-          </div>
-      </div>
-      <!-- Submit button -->
-        <%= f.submit "Sign-in", class: "btn btn-primary btn-block mb-4 w-100" %>
-    <% end %>
+    <div data-toggle-target="register" class="hidden">
+      <%= render "register" %>
+    </div>
   </div>
 <div>
 
 <!-- 
-  Change BG color
-
+  Select buttion ->
+    Display relative form
 -->
