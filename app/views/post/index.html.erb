@@ -1,2 +1,21 @@
-<h1>Post#index</h1>
-<p>Find me in app/views/post/index.html.erb</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+            <i class="bi bi-facebook nav-link"></i>  
+        </li>
+        <li>
+            <%= link_to "Home", root_url, class: "nav-link active" %>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <%= image_tag ("profile-pic.jpg"), style: "height:2em;width:2em;", class: "rounded-circle dropdown-toggle"%>
+        </li>
+    </ul>
+</nav>
+
+
+<!--
+    user-profile image -> user.profile.avatar instead of direct link
+        <%= image_tag (user.profile.avatar.variant(resize:""))>
+ -->
