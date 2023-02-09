@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = [ "login", "register", "registerButton", "loginButton" ]
+    static targets = [ "login", "register", "registerButton", "loginButton", "profileDropdown" ]
 
     displayLogin() {
       this.loginTarget.classList.remove("hidden")
@@ -15,5 +15,9 @@ export default class extends Controller {
       this.loginButtonTarget.classList.remove("active")
       this.registerTarget.classList.remove("hidden")    
       this.registerButtonTarget.classList.add("active")    
+    }
+
+    displayDropdown() {
+      this.profileDropdownTarget.classList.toggle("show")
     }
   }

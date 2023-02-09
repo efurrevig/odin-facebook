@@ -1,0 +1,26 @@
+<div>
+  <div id="post-display">
+    <% @posts.each do |post| %>
+        <article class="post">
+            <div class="post-header">
+                <%= post.user.name %>
+            </div>
+            <div class="post-body">
+                <%= post.body %>
+            </div>
+        </article>
+    <% end %>
+  </div>
+  <div id="post-form">
+    <%= form_with model: @post, local: false do |f| %>
+        <div class="field has-addons">
+            <div class="control">
+                <%= f.text_field :body, id: 'post-input', class: 'input' %>
+            </div>
+            <div class="control">
+                <%= f.submit 'Send Message', class: 'button is-primary' %>
+            </div>
+        </div>
+    <% end %>
+  </div>
+</div>

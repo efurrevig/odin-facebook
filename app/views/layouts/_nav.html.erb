@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+            <i class="bi bi-facebook nav-link"></i>  
+        </li>
+        <li>
+            <%= link_to "Home", root_url, class: "nav-link" %>
+        </li>
+    </ul>
+    <ul class="navbar-nav" data-controller="toggle">
+        <li class="nav-item dropdown">
+            <%= content_tag(:img, nil, 
+                            src: image_path("profile-pic.jpg"),
+                            "data-action" => "click->toggle#displayDropdown", 
+                            style: "height:2em;width:2em",
+                            class: "rounded-circle dropdown-toggle") %>
+            <div class="dropdown-menu" data-toggle-target="profileDropdown">
+                <%= link_to "Log-out", destroy_user_session_path, class: "dropdown-item", data: { "turbo-method": :delete } %>
+            </div> 
+        </li>
+    </ul>
+</nav>
