@@ -25,8 +25,22 @@
                                         <div class="d-flex flex-row align-items-center status"> <small>Like</small> <small>Reply</small> <small>8 mins</small> </div>
                                     </div>
                                 </div>
-                                <div class="comment-input"> <input type="text" class="form-control">
-                                    <div class="fonts"> <i class="fa fa-camera"></i> </div>
+                                <% post.comments.each do |comment| %>
+                                    <div class="d-flex flex-row mb-2"> <!-- IMAGE HERE -->
+                                        <div class="d-flex flex-column ml-2"> <span class="name"><%= comment.creator %></span> <small class="comment-text"><%= comment.body %></small>
+                                            <div class="d-flex flex-row align-items-center status"> <small>Like</small> <small>Reply</small> <small>8 mins</small> </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                                <div class="comment-input">
+                                    <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
+                                        <div>
+                                            <%= f.text_field :body, class: "form-control"%>
+                                        </div>
+                                        <div>
+                                            <%= f.submit "Comment", class: "btn btn-primary mt-2" %>
+                                        </div>
+                                    <% end %>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +51,7 @@
     <% end %>
   </div>
   <div id="post-form">
-    <%= form_with model: @post, local: false do |f| %>
+    <%= form_with model: @post do |f| %>
         <div class="field has-addons">
             <div class="control">
                 <%= f.text_field :body, id: 'post-input', class: 'input' %>
