@@ -14,11 +14,20 @@
                         <div class="p-2">
                             <p class="text-justify"><%= post.body %></p>
                             <hr>
+                            <!-- LIKE/DISLIKE -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex flex-row icons d-flex align-items-center">
-                                    <i class = "bi bi-hand-thumbs-up me-1"></i><small class="me-2"> <%= post.likes %> </small>
-                                    <i class = "bi bi-hand-thumbs-down me-1"></i><small> <%= post.dislikes %> </small>
-                                </div>
+                                <%= form_with model: @like, url: post_likes_path(post), method: "post" do |f| %>
+                                    <%= f.hidden_field :status, value: true %>
+                                    <%= f.submit "LIKE", class: "bi bi-hand-thumbs-up me-1" %>
+                                    <small class="me-2"> <%= post.like_count %> </small>
+                                <% end %>
+
+                                <%= form_with(url: post_likes_path(post), remote: true) do |f| %>
+                                    <%= f.hidden_field :post_id, value: post.id %>
+                                    <%= f.hidden_field :status, value: false %>
+                                    <button type="submit" class="bi bi-hand-thumbs-down me-1"></button>
+                                    <small> <%= post.dislike_count %> </small>
+                                    <% end %>
                                 <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                             </div>
                             <hr>
