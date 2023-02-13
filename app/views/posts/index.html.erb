@@ -24,13 +24,12 @@
                                 <% end %>
 
                                 <% if post.liked?(current_user) %>
-                                    <p> Liked </p>
+                        
                                 <% end %>
 
                                 <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-                                    <%= f.hidden_field :post_id, value: post.id %>
                                     <%= f.hidden_field :status, value: false %>
-                                    <button type="submit" class="bi bi-hand-thumbs-down me-1"></button>
+                                    <%= f.submit "DISLIKE", class: "bi bi-hand-thumbs-up me-1" %>
                                     <small> <%= post.dislike_count %> </small>
                                 <% end %>
                                 <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
