@@ -28,7 +28,7 @@
                                 <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
                                     <%= f.hidden_field :status, value: false %>
                                     <%= f.button nil, class: "like-button" do %>
-                                        <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                        <i class="bi bi-hand-thumbs-down-fill me-1"></i>
                                     <% end %>
                                     <small> <%= post.dislike_count %> </small>
                                 <% end %>
