@@ -16,18 +16,23 @@
                             <hr>
                             <!-- LIKE/DISLIKE -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <%= form_with model: @like, url: post_likes_path(post), method: "post" do |f| %>
+                                
+                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
                                     <%= f.hidden_field :status, value: true %>
                                     <%= f.submit "LIKE", class: "bi bi-hand-thumbs-up me-1" %>
                                     <small class="me-2"> <%= post.like_count %> </small>
                                 <% end %>
 
-                                <%= form_with(url: post_likes_path(post), remote: true) do |f| %>
+                                <% if post.liked?(current_user) %>
+                                    <p> Liked </p>
+                                <% end %>
+
+                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
                                     <%= f.hidden_field :post_id, value: post.id %>
                                     <%= f.hidden_field :status, value: false %>
                                     <button type="submit" class="bi bi-hand-thumbs-down me-1"></button>
                                     <small> <%= post.dislike_count %> </small>
-                                    <% end %>
+                                <% end %>
                                 <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                             </div>
                             <hr>

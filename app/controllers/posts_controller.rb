@@ -6,6 +6,11 @@ class PostsController < ApplicationController
     @like = Like.new
   end
 
+  def like_post
+    @post = Post.find(params[:id])
+    Like.create(like_params.merge(user_id: current_user.id, post_id: @post.id))
+  end
+
   def show
   end
 
@@ -28,7 +33,11 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
-    params.require(:post).permit(:body)
-  end
+    def post_params
+      params.require(:post).permit(:body)
+    end
+
+    def like_params
+      params.require(:like).permit(:status, :user_id, :post_id, :comment_id)
+    end
 end
