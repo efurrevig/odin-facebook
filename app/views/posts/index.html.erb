@@ -16,26 +16,27 @@
                             <hr>
                             <!-- LIKE/DISLIKE -->
                             <div class="d-flex justify-content-between align-items-center">
-                                
-                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-                                    <%= f.hidden_field :status, value: true %>
-                                    <%= f.button nil, class: "like-button" do %>
-                                        <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                <div class="d-flex flex-row">
+                                    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
+                                        <%= f.hidden_field :status, value: true %>
+                                        <%= f.button nil, class: "like-button" do %>
+                                            <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                        <% end %>
+                                        <small class="me-2"> <%= post.like_count %> </small>
                                     <% end %>
-                                    <small class="me-2"> <%= post.like_count %> </small>
-                                <% end %>
 
-                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-                                    <%= f.hidden_field :status, value: false %>
-                                    <%= f.button nil, class: "like-button" do %>
-                                        <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
+                                        <%= f.hidden_field :status, value: false %>
+                                        <%= f.button nil, class: "like-button" do %>
+                                            <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                        <% end %>
+                                        <small> <%= post.dislike_count %> </small>
                                     <% end %>
-                                    <small> <%= post.dislike_count %> </small>
-                                <% end %>
+                                </div>
                                 <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                             </div>
                             <hr>
-                            <div class="comments">
+                            <div class="comments" id="post-<%=post.id%>-comments">
                                 <% post.comments.each do |comment| %>
                                     <div class="d-flex flex-row mb-2"> <!-- IMAGE HERE -->
                                         <div class="d-flex flex-column ml-2"> 
