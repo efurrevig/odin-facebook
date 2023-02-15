@@ -1,13 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  body: MyText
-  likes: 1
-  dislikes: 1
-  post: one
+# one:
+#   body: MyText
+#   like_count: 1
+#   dislike_count: 1
+#   post: one
+#   user: two
+  
+# two:
+#   body: MyText
+#   like_count: 1
+#   dislike_count: 1
+#   post: two
+#   user: two
 
-two:
-  body: MyText
-  likes: 1
-  dislikes: 1
-  post: two
