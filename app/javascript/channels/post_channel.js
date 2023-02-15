@@ -37,14 +37,14 @@ const postChannel = consumer.subscriptions.create("PostChannel", {
                               <!-- LIKE/DISLIKE -->
                               <div class="d-flex justify-content-between align-items-center">
                                   <div class="d-flex flex-row">
-                                      <form>
+                                      <form action="/posts/:id/like" method="put">
                                           <input type="hidden" name="status" value="true">
                                           <button class="like-button">
                                               <i class="bi bi-hand-thumbs-up-fill me-1"></i>
                                           </button>
                                           <small class="me-2">${data.like_count}</small>
                                       </form>
-                                      <form>
+                                      <form action="/posts/:id/like" method="put">
                                           <input type="hidden" name="status" value="false">
                                           <button class="like-button">
                                               <i class="bi bi-hand-thumbs-down-fill me-1"></i>
