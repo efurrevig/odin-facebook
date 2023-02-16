@@ -3,13 +3,15 @@ class FriendRequest < ApplicationRecord
     belongs_to :recipient, class_name: 'User'
 
     ##validate uniqueness of sender_id and recipient_id
-    validate :sender_and_recipient_are_not_the_same
+    validate :sender_and_recipient_uniqueness
     validate :friend_request_uniqueness
     validate :not_sending_to_someone_who_already_sent_to_you
 
+    enum status: [:pending, :accepted, :rejected]
+    
     private
 
-        def sender_and_recipient_are_not_the_same
+        def sender_and_recipient_uniqueness
             if sender_id == recipient_id
                 errors.add(:sender_id, "can't be the same as recipient_id")
             end
@@ -28,5 +30,4 @@ class FriendRequest < ApplicationRecord
         end
 
 
-    enum status: [:pending, :accepted, :rejected]
 end

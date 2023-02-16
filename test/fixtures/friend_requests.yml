@@ -8,3 +8,18 @@
 #   recipient_id: 1
 #   sender_id: 2
 # # column: value
+  pending_one:
+    recipient_id: 200
+    sender_id: 201
+    status: 0
+
+  accepted_one:
+    recipient_id: 200
+    sender_id: 201
+    status: 1
+  
+  rejected_one:
+    recipient_id: 200
+    sender_id: 201
+    status: 2
+  
