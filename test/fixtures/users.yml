@@ -36,3 +36,13 @@ six:
   email: testenv6@test.com
   name: Anotha Doe
   id: 201
+
+seven:
+  email: testenv7@test.com
+  name: John Anotha
+  id: 1000
+
+eight:
+  email: testenv8@test.com
+  name: Jill Due
+  id: 1001

@@ -1,7 +1,8 @@
 class FriendRequest < ApplicationRecord
     belongs_to :sender, class_name: 'User'
     belongs_to :recipient, class_name: 'User'
-
+    has_many :friends, foreign_key: 'friend_request_id'
+    
     ##validate uniqueness of sender_id and recipient_id
     validate :sender_and_recipient_uniqueness
     validate :friend_request_uniqueness

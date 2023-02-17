@@ -29,24 +29,25 @@ class FriendRequestTest < ActiveSupport::TestCase
   end
 
   #enum status: [:pending, :accepted, :rejected]
-  test "should save friend request with status pending" do
+  test "should return status pending" do
     friend_request = FriendRequest.new(sender_id: @user1.id, recipient_id: @user2.id)
     assert friend_request.save
     assert_equal friend_request.status, 'pending'
   end
   
-  test "should save friend request with status accepted" do
+  test "should return status accepted" do
     friend_request = FriendRequest.new(sender_id: @user1.id, recipient_id: @user2.id)
     friend_request.status = 1
     assert friend_request.save
     assert_equal friend_request.status, 'accepted'
   end
 
-  test "should save friend request with status rejected" do
+  test "should return status rejected" do
     friend_request = FriendRequest.new(sender_id: @user1.id, recipient_id: @user2.id)
     friend_request.status = 2
     assert friend_request.save
     assert_equal friend_request.status, 'rejected'
   end
-  
+
+  #TO-DO: if friends are deleted, delete friend requests
 end
