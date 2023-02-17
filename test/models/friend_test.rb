@@ -35,4 +35,6 @@ class FriendTest < ActiveSupport::TestCase
     friend = Friend.new(user_id: @pending_friend_request.sender_id, friend_id: @pending_friend_request.recipient_id, friend_request_id: @pending_friend_request.id)
     assert_not friend.save
   end
+
+  
 end
