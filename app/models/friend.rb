@@ -10,7 +10,7 @@ class Friend < ApplicationRecord
   private
     def user_different_than_friend
       if user_id == friend_id
-        errors.add(:user_id, "can't be the same as friend")
+        errors.add("User can't be same as friend")
       end
     end
 

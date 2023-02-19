@@ -14,7 +14,7 @@ class FriendRequest < ApplicationRecord
 
         def sender_and_recipient_uniqueness
             if sender_id == recipient_id
-                errors.add(:sender_id, "can't be the same as recipient_id")
+                errors.add(:sender_id, "can't be the same as recipient")
             end
         end
 

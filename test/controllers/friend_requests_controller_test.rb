@@ -10,6 +10,11 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user1
   end
 
+  test "should get index" do
+    get user_friend_requests_path(@user1.id)
+    assert_response :success
+  end
+
   test "should create friend request" do
     assert_difference('FriendRequest.count') do
       post user_friend_requests_url(user_id: @user1.id, 
@@ -26,8 +31,13 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to friend request index if html request" do
     post user_friend_requests_url(user_id: @user1.id, 
-                                      friend_request: { sender_id: @user1.id, recipient_id: @user2.id }), xhr: false
-    assert_response :redirect
-    assert_redirected_to user_friend_requests_url(user_id: @user1.id)
+                                  friend_request: { sender_id: @user1.id, recipient_id: @user2.id }), xhr: false
+    assert_equal "Friend request sent successfully!", flash[:notice]
+  end
+
+  test "should return flash 'cant be the same as friend' if friend request already exists" do 
+    post user_friend_requests_url(user_id: @user1.id,
+                                  friend_request: { sender_id: @user1.id, recipient_id: @user1.id }), xhr: true
+    assert_equal "Sender can't be the same as recipient", flash[:alert]
   end
 end

@@ -8,6 +8,10 @@
         </li>
     </ul>
     <ul class="navbar-nav" data-controller="toggle">
+
+
+
+
         <li class="nav-item dropdown me-2 mt-1"> <!-- friend requests -->
             <%= content_tag(:i, nil,
                             "data-action" => "click->toggle#displayFriendRequestsDropdown",
@@ -17,8 +21,13 @@
                 <% current_user.received_friend_requests.where(status: :pending).limit(4).each do |item| %>
                     <div><%= User.find(item.sender_id).name %></div>
                 <% end %>
+                <div> <%= link_to "See all", user_friend_requests_path(current_user) %> </div>
             <div>
         </li>
+
+
+
+
         <li class="nav-item dropdown">
             <%= content_tag(:img, nil, 
                             src: image_path("profile-pic.jpg"),
