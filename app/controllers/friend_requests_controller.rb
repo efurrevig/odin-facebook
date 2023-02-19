@@ -20,7 +20,7 @@ class FriendRequestsController < ApplicationController
 
     def accept_friend_request
         @friend_request = FriendRequest.find(params[:id])
-        if @friend_request.update(status: 1)
+        if @friend_request.update(status: :accepted)
             flash[:notice] = "Friend request accepted"
         else
             flash[:notice] = @friend_request.errors.full_messages.to_sentence
@@ -29,7 +29,11 @@ class FriendRequestsController < ApplicationController
 
     def decline_friend_request
         @friend_request = FriendRequest.find(params[:id])
-        @friend_request.update(status: 2)
+        if @friend_request.update(status: :rejected)
+            flash[:notice] = "Friend request declined"
+        else
+            flash[:notice] = @friend_request.errors.full_messages.to_sentence
+        end
     end
         
     private
