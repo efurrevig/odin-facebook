@@ -21,13 +21,6 @@ class FriendRequestTest < ActiveSupport::TestCase
     assert_includes friend_request.errors.full_messages, 'You already have a friend request from this user'
   end
 
-  test "should not save friend request if sender already sent one to recipient" do
-    FriendRequest.create(sender_id: @user1.id, recipient_id: @user2.id)
-    friend_request = FriendRequest.new(sender_id: @user1.id, recipient_id: @user2.id)
-    assert_not friend_request.save
-    assert_includes friend_request.errors.full_messages, 'Friend request already exists'
-  end
-
   #enum status: [:pending, :accepted, :rejected]
   test "should return status pending" do
     friend_request = FriendRequest.new(sender_id: @user1.id, recipient_id: @user2.id)

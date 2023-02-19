@@ -4,6 +4,7 @@ class PostsController < ApplicationController
     @post = Post.new
     @comment = Comment.new
     @like = Like.new
+    @friend_request = FriendRequest.new
   end
 
   def like_post

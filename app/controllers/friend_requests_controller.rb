@@ -1,4 +1,6 @@
 class FriendRequestsController < ApplicationController
+    before_action :friend_request_uniqueness, only: [:create]
+
     def index
       @user = User.find(current_user.id)
       @received_requests = @user.received_friend_requests
@@ -15,13 +17,31 @@ class FriendRequestsController < ApplicationController
         end
     end
 
+
     def accept_friend_request
         @friend_request = FriendRequest.find(params[:id])
-        @friend_request.update(status: 'accepted')
+        if @friend_request.update(status: 1)
+            flash[:notice] = "Friend request accepted"
+        else
+            flash[:notice] = @friend_request.errors.full_messages.to_sentence
+        end
+    end
+
+    def decline_friend_request
+        @friend_request = FriendRequest.find(params[:id])
+        @friend_request.update(status: 2)
     end
         
     private
         def friend_request_params
             params.require(:friend_request).permit(:sender_id, :recipient_id)
+        end
+
+        def friend_request_uniqueness
+          sender = params[:sender_id]
+          recipient = params[:recipient_id]
+          if FriendRequest.where(sender: sender, recipient: recipient).exists?
+              errors.add(:base, 'Friend request already exists')
+          end
         end
 end

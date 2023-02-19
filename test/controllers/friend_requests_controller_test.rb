@@ -15,6 +15,14 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should accept friend request" do
+    @friend_request = friend_requests(:pending_one)
+    put accept_friend_request_path(@user1.id, @friend_request.id)
+    @friend_request.reload
+    assert_equal "accepted", @friend_request.status
+  end
+
+  
   test "should create friend request" do
     assert_difference('FriendRequest.count') do
       post user_friend_requests_url(user_id: @user1.id, 

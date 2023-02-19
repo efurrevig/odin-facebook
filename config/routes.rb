@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     resources :friends
   end
   
+  put '/users/:user_id/friend_requests/:id/edit', to: 'friend_requests#accept_friend_request', as: 'accept_friend_request'
+  put '/users/:user_id/friend_requests/:id/edit', to: 'friend_requests#decline_friend_request', as: 'decline_friend_request'
   put 'posts/:id/like', to: 'posts#like_post', as: 'like_post'
 end
