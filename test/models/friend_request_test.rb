@@ -42,5 +42,17 @@ class FriendRequestTest < ActiveSupport::TestCase
     assert_equal friend_request.status, 'rejected'
   end
 
-  #TO-DO: if friends are deleted, delete friend requests
+  test "should create two friends when friend request is accepted" do
+    assert_difference 'Friend.count', 2 do
+      friend_request = FriendRequest.create(sender_id: @user1.id, recipient_id: @user2.id)
+      friend_request.update(status: :accepted)
+    end
+  end
+
+  test "should not create two friends when friend request is rejected" do
+    assert_no_difference 'Friend.count' do
+      friend_request = FriendRequest.create(sender_id: @user1.id, recipient_id: @user2.id)
+      friend_request.update(status: :rejected)
+    end
+  end
 end

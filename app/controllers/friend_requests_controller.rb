@@ -3,7 +3,7 @@ class FriendRequestsController < ApplicationController
 
     def index
       @user = User.find(current_user.id)
-      @received_requests = @user.received_friend_requests
+      @received_requests = @user.received_friend_requests.where(status: :pending)
       @sent_requests = @user.sent_friend_requests
     end
 
@@ -39,13 +39,5 @@ class FriendRequestsController < ApplicationController
     private
         def friend_request_params
             params.require(:friend_request).permit(:sender_id, :recipient_id)
-        end
-
-        def friend_request_uniqueness
-          sender = params[:sender_id]
-          recipient = params[:recipient_id]
-          if FriendRequest.where(sender: sender, recipient: recipient).exists?
-              errors.add(:base, 'Friend request already exists')
-          end
         end
 end

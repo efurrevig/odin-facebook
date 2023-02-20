@@ -9,13 +9,25 @@
     </ul>
     <ul class="navbar-nav" data-controller="toggle">
 
-
+        <li class="nav-item dropdown me-2 mt-1"> <!-- friend requests -->
+            <%= content_tag(:i, nil,
+                            "data-action" => "click->toggle#displayFriendRequestsDropdown",
+                            class: "bi bi-people-fill")
+            %>
+            <div class="dropdown-menu" data-toggle-target="friendRequestsDropdown">
+                <% current_user.friends.limit(4).each do |item| %>
+                    <div><%= User.find(item.friend_id).name %></div>
+                <% end %>
+                
+                <div> <%= link_to "See all", user_friends_path(current_user) %> </div>
+            <div>
+        </li>
 
 
         <li class="nav-item dropdown me-2 mt-1"> <!-- friend requests -->
             <%= content_tag(:i, nil,
                             "data-action" => "click->toggle#displayFriendRequestsDropdown",
-                            class: "bi bi-people-fill")
+                            class: "bi bi-bell-fill")
             %>
             <div class="dropdown-menu" data-toggle-target="friendRequestsDropdown">
                 <% current_user.received_friend_requests.where(status: :pending).limit(4).each do |item| %>
