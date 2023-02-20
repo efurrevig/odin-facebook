@@ -1,5 +1,4 @@
 class FriendRequestsController < ApplicationController
-    before_action :friend_request_uniqueness, only: [:create]
 
     def index
       @user = User.find(current_user.id)
