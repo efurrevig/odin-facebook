@@ -6,7 +6,7 @@
 
 
 
-                    <div class="d-flex justify-content-between p-2" data-controller="requests">
+                    <div class="d-flex justify-content-between p-2">
                     
                         <div class="d-flex flex-row align-items-center"> 
                             <%= content_tag(:img, nil, 
@@ -16,11 +16,13 @@
                             <%= item.sender.name %>
                         </div>
 
-                        <div class="d-flex flex-row mt-1">
+                        <div class="d-flex flex-row mt-1" data-controller="requests">
+                            <i class="bi bi-check hidden accept-request" data-requests-target="check"></i>
+                            <i class="bi bi-x hidden decline-request" data-requests-target="x"></i>
                             <%= button_to "Accept", accept_friend_request_path(current_user.id, item), 
-                                            method: :put, remote: true, class: "btn btn-success me-2", data: { action: "click->requests#accept" } %>
+                                            method: :put, remote: true, class: "btn btn-success me-2", data: { action: "click->requests#accept", requests_target: "acceptFriend", disable_with: true} %>
                             <%= button_to "Decline", decline_friend_request_path(current_user.id, item), 
-                                            method: :delete, remote: true, class: "btn btn-danger", data: { turbo: "submit-end disable-decline" } %>
+                                            method: :delete, remote: true, class: "btn btn-danger", data: { action: "click->requests#decline", requests_target: "declineFriend", disable_with: true } %>
                         </div>
 
                     </div>
