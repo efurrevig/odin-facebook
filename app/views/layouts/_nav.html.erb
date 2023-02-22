@@ -41,7 +41,7 @@
 
 
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown"> <!-- Profile -->
             <%= content_tag(:img, nil, 
                             src: image_path("profile-pic.jpg"),
                             "data-action" => "click->toggle#displayProfileDropdown", 
@@ -49,6 +49,7 @@
                             class: "rounded-circle me-2") 
             %>
             <div class="dropdown-menu" data-toggle-target="profileDropdown">
+                <%= link_to "Profile", user_index_path, class: "dropdown-item" %>
                 <%= link_to "Log-out", destroy_user_session_path, class: "dropdown-item", data: { "turbo-method": :delete } %>
             </div> 
         </li>
