@@ -15,8 +15,9 @@ class FriendsController < ApplicationController
 
     def destroy
         @friend = Friend.find(params[:id])
-
-        if @friend.destroy
+        @other_friend = Friend.find_by(user_id: @friend.friend_id, friend_id: @friend.user_id)
+        # other friend
+        if @friend.destroy && @other_friend.destroy
             flash[:notice] = "Friend removed"
         else
             flash[:alert] = @friend.errors.full_messages.to_sentence

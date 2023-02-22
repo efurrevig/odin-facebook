@@ -5,6 +5,11 @@ one:
   friend_id: 1001
   friend_request_id: 1000 
 
+two: 
+  user_id: 1001
+  friend_id: 1000
+  friend_request_id: 1000
+
 
 
 
