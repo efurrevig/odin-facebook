@@ -13,6 +13,16 @@ class FriendsController < ApplicationController
         end
     end
 
+    def destroy
+        @friend = Friend.find(params[:id])
+
+        if @friend.destroy
+            flash[:notice] = "Friend removed"
+        else
+            flash[:alert] = @friend.errors.full_messages.to_sentence
+        end
+    end
+
     private
         def friend_params
             params.require(:friend).permit(:user_id, :friend_id, :friend_request_id)
