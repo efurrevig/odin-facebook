@@ -1,10 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = [ "friend" ]
+    static targets = [ "friend", "unfriendButton" ]
     
   connect() {
-    console.log("FriendsController connected")
+    this.unfriendButtonTarget.addEventListener("ajax:success", this.removeFriend.bind(this));
   }
 
+  removeFriend(event) {
+    this.friendTarget.remove()
+  }
 }

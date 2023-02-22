@@ -16,11 +16,15 @@ class FriendsController < ApplicationController
     def destroy
         @friend = Friend.find(params[:id])
         @other_friend = Friend.find_by(user_id: @friend.friend_id, friend_id: @friend.user_id)
-        # other friend
-        if @friend.destroy && @other_friend.destroy
-            flash[:notice] = "Friend removed"
-        else
-            flash[:alert] = @friend.errors.full_messages.to_sentence
+        
+        respond_to do |format|
+            if @friend.destroy && @other_friend.destroy
+                format.html { redirect_to user_friends_path(current_user.id), notice: 'Friend was successfully removed.' }
+                format.json { render json:, status: :ok}
+            else
+                format.html { redirect_to user_friends_path(current_user.id), status: :unprocessable_entity }
+                format.json { render json:, status: :unprocessable_entity }
+            end
         end
     end
 
