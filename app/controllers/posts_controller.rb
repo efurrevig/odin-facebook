@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.includes(:comments).order(created_at: :desc).all
+    @friends = current_user.friends
     @post = Post.new
     @comment = Comment.new
     @like = Like.new

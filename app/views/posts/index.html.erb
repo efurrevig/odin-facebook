@@ -1,20 +1,27 @@
-<div>
-
-  <div id="post-display">
-    <%= render "post", collection: @posts %>
-  </div>
-
-  <div id="post-form">
-    <%= form_with model: @post do |f| %>
-        <div class="field has-addons">
-            <div class="control">
-                <%= f.text_field :body, id: 'post-input', class: 'input' %>
-            </div>
-            <div class="control">
-                <%= f.submit 'Send Message', class: 'button is-primary' %>
-            </div>
+<div class="container-fluid px-0">
+    <div class="row">
+        <div class="col mt-5" id="friend-display">
+            <%= render "friends/sidebar", collection: @friends %>
         </div>
-    <% end %>
-  </div>
-  
+
+        <div class="col-6"id="post-display">
+            <%= render "post", collection: @posts %>
+        </div>
+
+        <div class="col">
+        </div>
+    </div>
+
 </div>
+<div id="post-form">
+        <%= form_with model: @post do |f| %>
+            <div class="field has-addons">
+                <div class="control">
+                    <%= f.text_field :body, id: 'post-input', class: 'input' %>
+                </div>
+                <div class="control">
+                    <%= f.submit 'Send Message', class: 'button is-primary' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
