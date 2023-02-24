@@ -1,19 +1,27 @@
-    <% @friends.each do |friend| %>
-        <div class="row d-flex align-items-center justify-content-center" data-controller="friends" data-friends-target="friend">
-            <div class="col-md-6 w-100">
-                <div class="card shadow p-3 rounded">
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-6 w-100">
+        <div class="card rounded-0 p-3">
+            <h2>Friends</h2>
+        </div>
+    </div>
+</div>
+    
+<% @friends.includes(:friend).each do |friend| %>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6 w-100">
+            <div class="card rounded-0 p-3">
 
-                    <div class="d-flex justify-content-between p-2">
-                        <div class="d-flex flex-row align-items-center"> 
-                            <%= content_tag(:img, nil, 
-                                                src: image_path("profile-pic.jpg"), 
-                                                style: "height:2em;width:2em",
-                                                class: "rounded-circle me-2") %>
-                            <%= friend.friend.name %>
-                        </div>
+                <div class="d-flex justify-content-between p-2">
+                    <div class="d-flex flex-row align-items-center"> 
+                        <%= content_tag(:img, nil, 
+                                            src: image_path("profile-pic.jpg"), 
+                                            style: "height:2em;width:2em",
+                                            class: "rounded-circle me-2") %>
+                        <%= link_to friend.friend.name, user_path(friend.friend.id), class: "friend-link" %>
                     </div>
-
                 </div>
+
             </div>
         </div>
-    <% end %>
+    </div>
+<% end %>
