@@ -1,4 +1,4 @@
-<% @posts.each do |post| %>
+<% @posts.includes(:likes).each do |post| %>
     <div class="container mt-5 mb-5">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="col-md-6 w-100">
@@ -21,7 +21,12 @@
                                 <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
                                     <%= f.hidden_field :status, value: true %>
                                     <%= f.button nil, class: "like-button" do %>
-                                        <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                        <% if post.like_or_dislike(current_user) %>
+                                            <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
+                                        <% else %>
+                                            <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                                        <% end %>
+
                                     <% end %>
                                     <small class="me-2"> <%= post.like_count %> </small>
                                 <% end %>
@@ -29,7 +34,14 @@
                                 <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
                                     <%= f.hidden_field :status, value: false %>
                                     <%= f.button nil, class: "like-button" do %>
-                                        <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                        <% case post.like_or_dislike(current_user) %>
+                                            <% when false %>
+                                                <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
+                                            <% when true  %>
+                                                <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                            <% when nil %>
+                                                <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                                        <% end %>
                                     <% end %>
                                     <small> <%= post.dislike_count %> </small>
                                 <% end %>
