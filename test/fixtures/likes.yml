@@ -14,3 +14,23 @@ one:
   user_id: 100
   status: true
   post_id: 1
+
+two:
+  user_id: 101
+  status: true
+  post_id: 2
+
+three:
+  user_id: 101
+  status: false
+  post_id: 2
+
+four:
+  user_id: 101
+  status: true
+  comment_id: 2
+
+five:
+  user_id: 101
+  status: false
+  comment_id: 2

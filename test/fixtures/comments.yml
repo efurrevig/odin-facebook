@@ -18,3 +18,11 @@ one:
   body: MyText
   post_id: 1
   user_id: 100
+
+two:
+  id: 2
+  body: MyText
+  post_id: 1
+  user_id: 101
+  like_count: 1
+  dislike_count: 1

@@ -6,7 +6,15 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     setup do 
       @user1 = users(:two)
       @post = posts(:one)
+      @post2 = posts(:two)
+      @like2 = likes(:two)
+      @like3 = likes(:three)
+      #comment likes
+      @like4 = likes(:four)
+      @like5 = likes(:five)
+
       @comment = comments(:one)
+      @comment2 = comments(:two)
       sign_in @user1
     end
 
@@ -22,17 +30,33 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
         end
     end
 
-    test "should update like from like to dislike for post" do
+    test "should update Like from true to false for post" do
+        #like2, post2
+        assert_changes -> { Like.find(@like2.id).status }, from: true, to: false do
+            patch post_like_path(@post2, @like2), params: { like: { status: false, user_id: @user1.id }, user_id: @user1.id }
+            #puts flash[:alert]
+        end
 
     end
 
-    test "should update like from like to dislike for comment" do
+    test "should update Like from false to true for post" do
+        assert_changes -> { Like.find(@like3.id).status }, from: false, to: true do
+            patch post_like_path(@post2, @like3), params: { like: { status: true, user_id: @user1.id }, user_id: @user1.id }
+            #puts flash[:alert]
+        end
+
     end
 
-    test "should update like from dislike to like for post" do
+    test "should update Like from true to false for comment" do
+        assert_changes -> { Like.find(@like4.id).status }, from: true, to: false do
+            patch post_comment_like_path(@post, @comment, @like4), params: { like: { status: false, user_id: @user1.id }, user_id: @user1.id }
+        end
     end
 
-    test "should update like from dislike to like for comment" do
+    test "should update Like from false to true for comment" do
+        assert_changes -> { Like.find(@like5.id).status }, from: false, to: true do
+            patch post_comment_like_path(@post, @comment, @like5), params: { like: { status: true, user_id: @user1.id }, user_id: @user1.id }
+        end
     end
 
     # Post like/dislike_count tests
