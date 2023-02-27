@@ -9,3 +9,8 @@
 #   user: two
 #   post: two
 #   status: false
+
+one: 
+  user_id: 100
+  status: true
+  post_id: 1

@@ -14,3 +14,7 @@
 #   post: two
 #   user: two
 
+one: 
+  body: MyText
+  post_id: 1
+  user_id: 100

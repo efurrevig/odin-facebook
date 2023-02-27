@@ -1,14 +1,14 @@
 class LikesController < ApplicationController
   def create
-    # if params.include?(:post_id)
-    #   @parent = Post.find(params[:post_id])
-    #   @like = @parent.likes.build(likes_params.merge(user_id: current_user.id))
-    # elsif params.include?(:comment_id)
-    #   @parent = Comment.find(params[:comment_id])
-    #   @like = @parent.likes.build(likes_params.merge(user_id: current_user.id))
-    # end
-
-    # @like.save!
+    if params.include?(:comment_id)
+      @comment = Comment.find(params[:comment_id])
+      @like = @comment.likes.build(likes_params)
+      @like.user_id = current_user.id
+      @like.save
+    else
+      @post = Post.find(params[:post_id])
+      @like = @post.likes.create(likes_params, user_id: current_user.id)
+    end
   end
 
   def update

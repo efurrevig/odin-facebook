@@ -1,64 +1,36 @@
-<% @posts.includes(:likes).each do |post| %>
+<% @posts.includes(:likes, :user).each do |post| %>
     <div class="container mt-5 mb-5">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="col-md-6 w-100">
                 <div class="card shadow p-3 rounded">
+
                     <div class="d-flex justify-content-between p-2">
                         <div class="d-flex flex-row align-items-center"> 
                             <%= image_tag("profile-pic.jpg", width: "40em", height: "40em", class: "me-1 rounded-circle") %>
-                            <div class="d-flex flex-column ml-2"> <span class="font-weight-bold"><%= post.user.name %></span></div>
+                            <div class="d-flex flex-column ml-2"> 
+                                <span class="font-weight-bold">
+                                    <%= link_to post.user.name, user_path(post.user.id), method: :get, class: "default-link"%>
+                                </span>
+                            </div>
                         </div>
                         <div class="d-flex flex-row mt-1"> 
-                            <small class="mr-2"><%= time_ago_in_words(post.created_at) %> ago </small> <i class="bi bi-three-dots"></i> 
+                            <small class="me-1"><%= time_ago_in_words(post.created_at) %> ago </small> <i class="bi bi-three-dots"></i> 
                         </div>
                     </div>
+
                     <div class="p-2">
                         <p class="text-justify"><%= post.body %></p>
                         <hr>
                         <!-- LIKE/DISLIKE -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex flex-row">
-                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-                                    <%= f.hidden_field :status, value: true %>
-                                    <%= f.button nil, class: "like-button" do %>
-                                        <% if post.like_or_dislike(current_user) %>
-                                            <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
-                                        <% else %>
-                                            <i class="bi bi-hand-thumbs-up-fill me-1"></i>
-                                        <% end %>
-
-                                    <% end %>
-                                    <small class="me-2"> <%= post.like_count %> </small>
-                                <% end %>
-
-                                <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-                                    <%= f.hidden_field :status, value: false %>
-                                    <%= f.button nil, class: "like-button" do %>
-                                        <% case post.like_or_dislike(current_user) %>
-                                            <% when false %>
-                                                <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
-                                            <% when true  %>
-                                                <i class="bi bi-hand-thumbs-down-fill me-1"></i>
-                                            <% when nil %>
-                                                <i class="bi bi-hand-thumbs-down-fill me-1"></i>
-                                        <% end %>
-                                    <% end %>
-                                    <small> <%= post.dislike_count %> </small>
-                                <% end %>
-                            </div>
+                            <%= render "likes/post_like", locals: { post: post }%>
                             <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                         </div>
                         <hr>
                         <div class="comments" id="post-<%=post.id%>-comments">
-                            <% post.comments.each do |comment| %>
-                                <div class="d-flex flex-row mb-2"> <!-- IMAGE HERE -->
-                                    <div class="d-flex flex-column ml-2"> 
-                                        <span class="name"><%= comment.creator %></span> 
-                                        <small class="comment-text"><%= comment.body %></small>
-                                        <div class="d-flex flex-row align-items-center status"><small><%= time_ago_in_words(comment.created_at) %> ago</small> </div>
-                                    </div>
-                                </div>
-                            <% end %>
+
+                            <%= render "comments/comment", locals: { post: post, like: @like } %>
+
                             <div class="comment-input">
                                 <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
                                     <div>

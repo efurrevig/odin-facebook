@@ -7,3 +7,11 @@
 # two:
 #   body: MyText
 #   user_id: 2
+
+one:
+  id: 1
+  body: MyText
+  user_id: 100
+  like_count: 0
+  dislike_count: 0
+
