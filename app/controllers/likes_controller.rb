@@ -7,14 +7,20 @@ class LikesController < ApplicationController
       @like.save
     else
       @post = Post.find(params[:post_id])
-      @like = @post.likes.create(likes_params, user_id: current_user.id)
+      @like = @post.likes.build(likes_params)
+      @like.user_id = current_user.id
+      @like.save
     end
   end
 
   def update
+    @like = Like.find(params[:id])
+    @like.update(likes_params)
   end
 
   def destroy
+    @like = Like.find(params[:id])
+    @like.destroy
   end
 
   private
