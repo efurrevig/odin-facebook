@@ -23,7 +23,7 @@
                         <hr>
                         <!-- LIKE/DISLIKE -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <%= render "likes/post_like", locals: { post: post }%>
+                            <%= render "likes/post_like", locals: { post: post, likes: post.likes }%>
                             <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                         </div>
                         <hr>

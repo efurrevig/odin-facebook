@@ -1,29 +1,52 @@
-<% post = local_assigns[:locals][:post]%>
-<div class="d-flex flex-row">
-    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-        <%= f.hidden_field :status, value: true %>
-        <%= f.button nil, class: "like-button" do %>
-            <% if post.like_or_dislike(current_user) %>
-                <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
-            <% else %>
-                <i class="bi bi-hand-thumbs-up-fill me-1"></i>
-            <% end %>
-        <% end %>
-        <small class="me-2"> <%= post.like_count %> </small>
-    <% end %>
+<% post = local_assigns[:locals][:post] %>
 
-    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-        <%= f.hidden_field :status, value: false %>
-        <%= f.button nil, class: "like-button" do %>
-            <% case post.like_or_dislike(current_user) %>
-                <% when false %>
-                    <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
-                <% when true  %>
-                    <i class="bi bi-hand-thumbs-down-fill me-1"></i>
-                <% when nil %>
-                    <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+<% if post.liked?(current_user) %>
+    <% liked = post.like_or_dislike(current_user) %> <!-- Ex. liked = [true, like]-->
+    <div class="d-flex flex-row">
+        <%= form_with model: @like, url: post_like_path(post, liked[1]), method: "patch", remote: true do |f| %>
+            <%= f.hidden_field :status, value: true %>
+            <%= f.button nil, class: "like-button" do %>
+                <% if liked[0] %>
+                    <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
+                <% else %>
+                    <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+                <% end %>
             <% end %>
+            <small class="me-2"> <%= post.like_count %> </small>
         <% end %>
-        <small> <%= post.dislike_count %> </small>
-    <% end %>
-</div>
+
+        <%= form_with model: @like, url: post_like_path(post, liked[1]), method: "patch", remote: true do |f| %>
+            <%= f.hidden_field :status, value: false %>
+            <%= f.button nil, class: "like-button" do %>
+                <% if !liked[0] %>
+                    <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
+                <% else %>
+                    <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+                <% end %>
+            <% end %>
+            <small> <%= post.dislike_count %> </small>
+        <% end %>
+    </div>
+
+
+<% else %>
+
+    <div class="d-flex flex-row">
+        <%= form_with model: @like, url: post_likes_path(post), method: "post", remote: true do |f| %>
+            <%= f.hidden_field :status, value: true %>
+            <%= f.button nil, class: "like-button" do %>
+                    <i class="bi bi-hand-thumbs-up-fill me-1"></i>
+            <% end %>
+            <small class="me-2"> <%= post.like_count %> </small>
+        <% end %>
+
+        <%= form_with model: @like, url: post_likes_path(post), method: "post", remote: true do |f| %>
+            <%= f.hidden_field :status, value: false %>
+            <%= f.button nil, class: "like-button" do %>
+                <i class="bi bi-hand-thumbs-down-fill me-1"></i>
+            <% end %>
+            <small> <%= post.dislike_count %> </small>
+        <% end %>
+    </div>
+
+<% end %>
