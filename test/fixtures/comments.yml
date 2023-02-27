@@ -18,6 +18,8 @@ one:
   body: MyText
   post_id: 1
   user_id: 100
+  like_count: 0
+  dislike_count: 0
 
 two:
   id: 2
