@@ -4,29 +4,29 @@
 <% if comment.liked?(current_user) %>
     <% liked = comment.like_or_dislike(current_user) %> <!-- Ex. liked = [true, comment] -->
     <div class="d-flex flex-row">
-        <%= form_with model: @like, url: post_comment_like_path(post, comment, liked[1]), method: "patch", remote: true do |f| %>
+        <%= form_with model: @like, url: like_comment_path(comment), method: "put", remote: true do |f| %>
             <%= f.hidden_field :status, value: true %>
             <%= f.button nil, class: "like-button" do %>
-                <% if liked[0] %>
+                <% if liked %>
                     <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
                 <% else %>
                     <i class="bi bi-hand-thumbs-up-fill me-1"></i>
                 <% end %>
 
             <% end %>
-            <small class="me-2"> <%= comment.like_count %> </small>
+            <small class="me-2"> <%= comment.likes.where(status: true).count %> </small>
         <% end %>
 
-        <%= form_with model: @like, url: post_comment_like_path(post, comment, liked[1]), method: "patch", remote: true do |f| %>
+        <%= form_with model: @like, url: like_comment_path(comment), method: "put", remote: true do |f| %>
             <%= f.hidden_field :status, value: false %>
             <%= f.button nil, class: "like-button" do %>
-                <% if !liked[0] %>
+                <% if !liked %>
                     <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
                 <% else %>
                     <i class="bi bi-hand-thumbs-down-fill me-1"></i>
                 <% end %>
             <% end %>
-            <small> <%= comment.dislike_count %> </small>
+            <small> <%= comment.likes.where(status: :false).count %> </small>
         <% end %>
     </div>
 
@@ -34,20 +34,20 @@
 
 
     <div class="d-flex flex-row">
-        <%= form_with model: @like, url: post_comment_likes_path(post, comment), method: "post", remote: true do |f| %>
+        <%= form_with model: @like, url: like_comment_path(comment), method: "put", remote: true do |f| %>
             <%= f.hidden_field :status, value: true %>
             <%= f.button nil, class: "like-button" do %>
                     <i class="bi bi-hand-thumbs-up-fill me-1"></i>
             <% end %>
-            <small class="me-2"> <%= comment.like_count %> </small>
+            <small class="me-2"> <%= comment.likes.where(status: true).count %> </small>
         <% end %>
 
-        <%= form_with model: @like, url: post_comment_likes_path(post, comment), method: "post", remote: true do |f| %>
+        <%= form_with model: @like, url: like_comment_path(comment), method: "put", remote: true do |f| %>
             <%= f.hidden_field :status, value: false %>
             <%= f.button nil, class: "like-button" do %>
                 <i class="bi bi-hand-thumbs-down-fill me-1"></i>
             <% end %>
-            <small> <%= comment.dislike_count %> </small>
+            <small> <%= comment.likes.where(status: :false).count %> </small>
         <% end %>
     </div>
 

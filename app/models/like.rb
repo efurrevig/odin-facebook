@@ -11,52 +11,5 @@ class Like < ApplicationRecord
     validates_uniqueness_of :user_id, scope: :post_id, if: :post_id
   end
 
-  after_create :increment_like_count
-  after_create :increment_dislike_count
-  after_destroy :decrement_like_count
-  after_destroy :decrement_dislike_count
-  after_update :update_like_dislike_count
 
-  def update_like_dislike_count
-    if self.status
-      self.post.increment!(:like_count) if self.post
-      self.comment.increment!(:like_count) if self.comment
-      self.post.decrement!(:dislike_count) if self.post
-      self.comment.decrement!(:dislike_count) if self.comment
-    else
-      self.post.increment!(:dislike_count) if self.post
-      self.comment.increment!(:dislike_count) if self.comment
-      self.post.decrement!(:like_count) if self.post
-      self.comment.decrement!(:like_count) if self.comment
-    end
-  end
-
-
-  def increment_like_count
-    if self.status
-      self.post.increment!(:like_count) if self.post
-      self.comment.increment!(:like_count) if self.comment
-    end
-  end
-
-  def increment_dislike_count
-    if !self.status
-      self.post.increment!(:dislike_count) if self.post
-      self.comment.increment!(:dislike_count) if self.comment
-    end
-  end
-
-  def decrement_like_count
-    if self.status
-      self.post.decrement!(:like_count) if self.post
-      self.comment.decrement!(:like_count) if self.comment
-    end
-  end
-
-  def decrement_dislike_count
-    if !self.status
-      self.post.decrement!(:dislike_count) if self.post
-      self.comment.decrement!(:dislike_count) if self.comment
-    end
-  end
 end

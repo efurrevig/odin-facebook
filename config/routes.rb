@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   put '/users/:user_id/friend_requests/:id/edit', to: 'friend_requests#accept_friend_request', as: 'accept_friend_request'
   delete '/users/:user_id/friend_requests/:id/edit', to: 'friend_requests#decline_friend_request', as: 'decline_friend_request'
   put 'posts/:id/like', to: 'posts#like_post', as: 'like_post'
+  put 'comments/:id/like', to: 'comments#like_comment', as: 'like_comment'
 end
