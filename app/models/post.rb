@@ -16,4 +16,5 @@ class Post < ApplicationRecord
       like.status
     end
   end
+  
 end

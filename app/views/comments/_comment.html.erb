@@ -1,5 +1,6 @@
 <% post = local_assigns[:locals][:post] %>
-<% post.comments.includes(:user).each do |comment| %>
+
+<% post.comments.includes(:user, :likes).each do |comment| %>
     <div class="d-flex flex-row mb-2"> <!-- IMAGE HERE -->
         <div class="d-flex flex-column ml-2"> 
             <span class="name">
@@ -8,7 +9,7 @@
             <small class="comment-text">
                 <%= comment.body %>
             </small>
-            <%= render "likes/comment_like", locals: { comment: comment, like: @like, post: post } %>
+            <%= render "likes/comment_like", locals: { comment: comment, likes: comment.likes, like: @like, post: post } %>
             <div class="d-flex flex-row align-items-center status">
                 <small><%= time_ago_in_words(comment.created_at) %> ago</small> 
             </div>

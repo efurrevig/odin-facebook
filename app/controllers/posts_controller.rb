@@ -26,9 +26,14 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-
     @post.save
-    ActionCable.server.broadcast('post', @post.as_json(include: :user))
+    if @post.save
+      ActionCable.server.broadcast(
+        'post', 
+        {html: render_to_string(partial: 'posts/post', locals: { post: @post })}
+      )
+      head :ok
+    end
   end
 
   def edit

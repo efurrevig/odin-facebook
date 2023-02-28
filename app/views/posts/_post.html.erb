@@ -1,50 +1,50 @@
-<% @posts.includes(:likes, :user).each do |post| %>
-    <div class="container mt-5 mb-5">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-md-6 w-100">
-                <div class="card shadow p-3 rounded">
+<% post = local_assigns[:post] if local_assigns[:post] %>
+<% post ||= local_assigns[:locals][:post] %>
+<div class="container mt-5 mb-5">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6 w-100">
+            <div class="card shadow p-3 rounded">
 
-                    <div class="d-flex justify-content-between p-2">
-                        <div class="d-flex flex-row align-items-center"> 
-                            <%= image_tag("profile-pic.jpg", width: "40em", height: "40em", class: "me-1 rounded-circle") %>
-                            <div class="d-flex flex-column ml-2"> 
-                                <span class="font-weight-bold">
-                                    <%= link_to post.user.name, user_path(post.user.id), method: :get, class: "default-link"%>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row mt-1"> 
-                            <small class="me-1"><%= time_ago_in_words(post.created_at) %> ago </small> <i class="bi bi-three-dots"></i> 
+                <div class="d-flex justify-content-between p-2">
+                    <div class="d-flex flex-row align-items-center"> 
+                        <%= image_tag("profile-pic.jpg", width: "40em", height: "40em", class: "me-1 rounded-circle") %>
+                        <div class="d-flex flex-column ml-2"> 
+                            <span class="font-weight-bold">
+                                <%= link_to post.user.name, user_path(post.user.id), method: :get, class: "default-link"%>
+                            </span>
                         </div>
                     </div>
+                    <div class="d-flex flex-row mt-1"> 
+                        <small class="me-1"><%= time_ago_in_words(post.created_at) %> ago </small> <i class="bi bi-three-dots"></i> 
+                    </div>
+                </div>
 
-                    <div class="p-2">
-                        <p class="text-justify"><%= post.body %></p>
-                        <hr>
-                        <!-- LIKE/DISLIKE -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <%= render "likes/post_like", locals: { post: post, likes: post.likes }%>
-                            <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
-                        </div>
-                        <hr>
-                        <div class="comments" id="post-<%=post.id%>-comments">
+                <div class="p-2">
+                    <p class="text-justify"><%= post.body %></p>
+                    <hr>
+                    <!-- LIKE/DISLIKE -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <%= render "likes/post_like", locals: { post: post, likes: post.likes }%>
+                        <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
+                    </div>
+                    <hr>
+                    <div class="comments" id="post-<%=post.id%>-comments">
 
-                            <%= render "comments/comment", locals: { post: post, like: @like } %>
+                        <%= render "comments/comment", locals: { post: post, like: @like } %>
 
-                            <div class="comment-input">
-                                <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
-                                    <div>
-                                        <%= f.text_field :body, class: "form-control"%>
-                                    </div>
-                                    <div>
-                                        <%= f.submit "Comment", class: "btn btn-primary mt-2" %>
-                                    </div>
-                                <% end %>
-                            </div>
+                        <div class="comment-input">
+                            <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
+                                <div>
+                                    <%= f.text_field :body, class: "form-control"%>
+                                </div>
+                                <div>
+                                    <%= f.submit "Comment", class: "btn btn-primary mt-2" %>
+                                </div>
+                            <% end %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<% end %>
+</div>

@@ -8,8 +8,4 @@ class PostChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def receive(data)
-    data['user'] = current_user
-    ActionCable.server.broadcast('post', data)
-  end
 end
