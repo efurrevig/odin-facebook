@@ -1,52 +1,28 @@
 <% post = local_assigns[:locals][:post] %>
 
-<% if post.liked?(current_user) %>
-    <% liked = post.like_or_dislike(current_user) %> 
-    <div class="d-flex flex-row">
-        <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-            <%= f.hidden_field :status, value: true %>
-            <%= f.button nil, class: "like-button" do %>
-                <% if liked %>
-                    <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
-                <% else %>
-                    <i class="bi bi-hand-thumbs-up-fill me-1"></i>
-                <% end %>
+<% liked = post.like_or_dislike(current_user) %> 
+<div class="d-flex flex-row">
+    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
+        <%= f.hidden_field :status, value: true %>
+        <%= f.button nil, class: "like-button" do %>
+            <% if liked %>
+                <i class="bi bi-hand-thumbs-up-fill me-1 liked-disliked"></i>
+            <% else %>
+                <i class="bi bi-hand-thumbs-up-fill me-1"></i>
             <% end %>
-            <small class="me-2"> <%= post.likes.where(status: true).count %> </small>
         <% end %>
+        <small class="me-2"> <%= post.likes.where(status: true).count %> </small>
+    <% end %>
 
-        <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-            <%= f.hidden_field :status, value: false %>
-            <%= f.button nil, class: "like-button" do %>
-                <% if !liked %>
-                    <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
-                <% else %>
-                    <i class="bi bi-hand-thumbs-down-fill me-1"></i>
-                <% end %>
-            <% end %>
-            <small> <%= post.likes.where(status: :false).count %> </small>
-        <% end %>
-    </div>
-
-
-<% else %>
-
-    <div class="d-flex flex-row">
-        <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-            <%= f.hidden_field :status, value: true %>
-            <%= f.button nil, class: "like-button" do %>
-                    <i class="bi bi-hand-thumbs-up-fill me-1"></i>
-            <% end %>
-            <small class="me-2"> <%= post.likes.where(status: true).count %> </small>
-        <% end %>
-
-        <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
-            <%= f.hidden_field :status, value: false %>
-            <%= f.button nil, class: "like-button" do %>
+    <%= form_with model: @like, url: like_post_path(post), method: "put", remote: true do |f| %>
+        <%= f.hidden_field :status, value: false %>
+        <%= f.button nil, class: "like-button" do %>
+            <% if liked == false %>
+                <i class="bi bi-hand-thumbs-down-fill me-1 liked-disliked"></i>
+            <% else %>
                 <i class="bi bi-hand-thumbs-down-fill me-1"></i>
             <% end %>
-            <small> <%= post.likes.where(status: :false).count %> </small>
         <% end %>
-    </div>
-
-<% end %>
+        <small> <%= post.likes.where(status: :false).count %> </small>
+    <% end %>
+</div>

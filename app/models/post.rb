@@ -7,9 +7,13 @@ class Post < ApplicationRecord
     !!self.likes.find{|like| like.user_id == user.id}
   end
 
-  #returns like status and like, can only be called if .liked? == true
+
   def like_or_dislike(user)
     like = likes.find_by(user_id: user.id)
-    [like.status, like]
+    if like.nil?
+      return nil
+    else
+      like.status
+    end
   end
 end

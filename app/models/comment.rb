@@ -8,9 +8,14 @@ class Comment < ApplicationRecord
     !!self.likes.find{|like| like.user_id == user.id}
   end
 
-  #returns like status and like, can only be called if .liked? == true
+
   def like_or_dislike(user)
     like = likes.find_by(user_id: user.id)
-    like.status
+    if like.nil?
+      return nil
+    else
+      return like.status
+    end
   end
+  
 end
