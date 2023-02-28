@@ -15,10 +15,10 @@ class LikesController < ApplicationController
 
   def update
     @like = Like.find(params[:id])
-    if @like.update(likes_params)
-      render json: :ok
+    if @like.status.to_s != params[:like][:status]
+      @like.update(likes_params)
     else
-      flash[:alert] = @like.errors.full_messages.to_sentence
+      head :ok
     end
   end
 
