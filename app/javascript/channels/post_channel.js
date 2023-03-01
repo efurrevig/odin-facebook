@@ -9,9 +9,14 @@ const postChannel = consumer.subscriptions.create("PostChannel", {
     // Called when the subscription has been terminated by the server
   },
 
-  received(data) {
-    const postDisplay = document.querySelector('#post-display')
-    postDisplay.insertAdjacentHTML('afterbegin', data.html)
+  received: function(data) {
+    if (data.post_id) {
+      const postDisplay = document.querySelector(`#post-${data.post_id}-comments`);
+      postDisplay.insertAdjacentHTML('beforeend', data.html);
+    } else {
+      const postDisplay = document.querySelector('#post-display');
+      postDisplay.insertAdjacentHTML('afterbegin', data.html);
+    }
   },
 
 

@@ -6,7 +6,7 @@
 
         <div class="col-6"id="post-display">
             <% @posts.includes(:likes, :user).each do |post| %>
-                <%= render "post", locals: { post: post, likes: post.likes } %>
+                <%= render partial: "post", locals: { post: post, likes: post.likes } %>
             <% end %>
         </div>
 

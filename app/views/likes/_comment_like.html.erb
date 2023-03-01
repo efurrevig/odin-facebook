@@ -1,7 +1,5 @@
-<% comment = local_assigns[:locals][:comment]%>
-<% post = local_assigns[:locals][:post] %>
+<% liked = comment.like_or_dislike(current_user) %>
 
-<% liked = comment.like_or_dislike(current_user) %> <!-- Ex. liked = [true, comment] -->
 <div class="d-flex flex-row">
     <%= form_with model: @like, url: like_comment_path(comment), method: "put", remote: true do |f| %>
         <%= f.hidden_field :status, value: true %>

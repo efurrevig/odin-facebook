@@ -7,7 +7,21 @@ class CommentsController < ApplicationController
         @post = Post.find(params[:post_id])
         @comment = @post.comments.build(comment_params)
         @comment.user_id = current_user.id
-        @comment.save
+        if @comment.save
+            ActionCable.server.broadcast(
+                "#{current_user.id}_post", 
+                {html: render_to_string(partial: 'comments/comment', locals: { comment: @comment, post: @post }),
+                post_id: @post.id}
+            )
+            @post.user.friends.each do |friend|
+                ActionCable.server.broadcast(
+                    "#{friend.friend_id}_post", 
+                    {html: render_to_string(partial: 'comments/comment', locals: { comment: @comment, post: @post }),
+                    post_id: @post.id}
+                )
+            end
+            head :ok
+        end
     end
 
     def like_comment

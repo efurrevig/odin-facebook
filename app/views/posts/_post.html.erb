@@ -1,5 +1,3 @@
-<% post = local_assigns[:post] if local_assigns[:post] %>
-<% post ||= local_assigns[:locals][:post] %>
 <div class="container mt-5 mb-5">
     <div class="row d-flex align-items-center justify-content-center">
         <div class="col-md-6 w-100">
@@ -24,15 +22,17 @@
                     <hr>
                     <!-- LIKE/DISLIKE -->
                     <div class="d-flex justify-content-between align-items-center">
-                        <%= render "likes/post_like", locals: { post: post, likes: post.likes }%>
+                        <%= render partial: "likes/post_like", locals: { post: post, likes: post.likes }%>
                         <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
                     </div>
                     <hr>
+                    <!-- COMMENTS -->
                     <div class="comments" id="post-<%=post.id%>-comments">
-
-                        <%= render "comments/comment", locals: { post: post, like: @like } %>
-
-                        <div class="comment-input">
+                        <% post.comments.includes(:user, :likes).each do |comment| %>
+                            <%= render partial: "comments/comment", locals: { post: post, like: @like, comment: comment } %>
+                        <% end %>
+                    </div>
+                    <div class="comment-input">
                             <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
                                 <div>
                                     <%= f.text_field :body, class: "form-control"%>
@@ -41,8 +41,8 @@
                                     <%= f.submit "Comment", class: "btn btn-primary mt-2" %>
                                 </div>
                             <% end %>
-                        </div>
                     </div>
+                    <!-- COMMENTS END -->
                 </div>
             </div>
         </div>
