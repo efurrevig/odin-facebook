@@ -3,15 +3,18 @@
 
 <div class="d-flex flex-row mb-2"> <!-- IMAGE HERE -->
     <div class="d-flex flex-column ml-2"> 
-        <span class="name">
-            <%= comment.user.name %>
-        </span> 
-        <small class="comment-text">
-            <%= comment.body %>
-        </small>
-        <%= render partial: "likes/comment_like", locals: { comment: comment, likes: comment.likes, like: @like, post: post } %>
+        <div class = "d-flex flex-row ml-2">
+            <div class="name small me-2">
+                <%= link_to comment.user.name, user_path(comment.user.id), class: "default-link"%>
+            </div> 
+            <div class="comment-text small text-break">
+                <%= comment.body %>
+            </div>
+        </div>
         <div class="d-flex flex-row align-items-center status">
-            <small><%= time_ago_in_words(comment.created_at) %> ago</small> 
+            <small><%= comment.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%-l:%M%P") %></small>
+            <div class="smaller"> <%= render partial: "likes/comment_like", locals: { comment: comment, likes: comment.likes, like: @like, post: post } %> </div>
         </div>
     </div>
 </div>
+  

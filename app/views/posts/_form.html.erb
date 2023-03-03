@@ -1,0 +1,20 @@
+<div class="container mt-5 mb-5">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6 w-100">
+
+            <div id="post-form">
+                <%= form_with model: post do |f| %>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <%= f.text_area :body, id: 'post-input', placeholder: "Create a post here!", class: 'input w-100 post-input' %>
+                        </div>
+                        <div class="control">
+                            <%= f.submit 'Create Post', class: 'btn btn-primary mt-2' %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        
+        </div>
+    </div>
+</div>

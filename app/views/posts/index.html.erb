@@ -5,6 +5,7 @@
         </div>
 
         <div class="col-6"id="post-display">
+            <%= render partial: "form", locals: { post: @post } %>
             <% @posts.includes(:likes, :user).each do |post| %>
                 <%= render partial: "post", locals: { post: post, likes: post.likes } %>
             <% end %>
@@ -15,15 +16,4 @@
     </div>
 
 </div>
-<div id="post-form">
-    <%= form_with model: @post do |f| %>
-        <div class="field has-addons">
-            <div class="control">
-                <%= f.text_field :body, id: 'post-input', class: 'input' %>
-            </div>
-            <div class="control">
-                <%= f.submit 'Send Message', class: 'button is-primary' %>
-            </div>
-        </div>
-    <% end %>
-</div>
+
