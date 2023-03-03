@@ -1,5 +1,7 @@
 import consumer from "./consumer"
 
+
+
 const postChannel = consumer.subscriptions.create("PostChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
@@ -20,4 +22,4 @@ const postChannel = consumer.subscriptions.create("PostChannel", {
   },
 
 
-  });
+});

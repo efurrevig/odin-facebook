@@ -23,13 +23,17 @@
                     <!-- LIKE/DISLIKE -->
                     <div class="d-flex justify-content-between align-items-center">
                         <%= render partial: "likes/post_like", locals: { post: post, likes: post.likes }%>
-                        <div class="d-flex flex-row muted-color"> <span><%= post.comments.size %> comments</span> </div>
+                        <div class="d-flex flex-row muted-color"> <span><%= post.comments_count %> comments</span> </div>
                     </div>
                     <hr>
                     <!-- COMMENTS -->
                     <div class="comments" id="post-<%=post.id%>-comments">
-                        <% post.comments.includes(:user, :likes).each do |comment| %>
+                        <% post.comments.includes(:user, :likes).limit(2).each do |comment| %>
                             <%= render partial: "comments/comment", locals: { post: post, like: @like, comment: comment } %>
+                        <% end %>
+
+                        <% if post.comments_count > 2 %>
+                        <!-- fhiuehfiewufh -->
                         <% end %>
                     </div>
                     <div class="comment-input">

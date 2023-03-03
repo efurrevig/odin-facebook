@@ -11,7 +11,7 @@
     </button>
 </div>
 <p class="text-center">or:</p>
-<%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
+<%= form_for(resource, as: resource_name, url: user_registration_path, data: {turbo: false}) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <div class="mb-4">
     <!-- Name Input -->
