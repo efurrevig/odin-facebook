@@ -26,19 +26,21 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    if @post.save
-      ActionCable.server.broadcast(
-        "#{current_user.id}_post", 
-        {html: render_to_string(partial: 'posts/post', locals: { post: @post })}
-      )
-      current_user.friends.each do |friend|
+
+      if @post.save
         ActionCable.server.broadcast(
-          "#{friend.friend_id}_post", 
+          "#{current_user.id}_post", 
           {html: render_to_string(partial: 'posts/post', locals: { post: @post })}
         )
+        current_user.friends.each do |friend|
+          ActionCable.server.broadcast(
+            "#{friend.friend_id}_post", 
+            {html: render_to_string(partial: 'posts/post', locals: { post: @post })}
+          )
+        end
+        head :ok
       end
-      head :ok
-    end
+
   end
 
   def edit

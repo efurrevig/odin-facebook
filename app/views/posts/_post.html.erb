@@ -37,7 +37,7 @@
                         <% end %>
                     </div>
                     <div class="comment-input">
-                            <%= form_with model: @comment, url: post_comments_path(post), method: "post" do |f| %>
+                            <%= form_with model: @comment, url: post_comments_path(post), method: "post", remote: true do |f| %>
                                 <div>
                                     <%= f.text_field :body, class: "form-control"%>
                                 </div>

@@ -1,14 +1,20 @@
+
 <div class="container-fluid px-0">
     <div class="row">
+        <!-- Friend sidebar -->
         <div class="col mt-5" id="friend-display">
             <%= render "friends/sidebar", collection: @friends %>
         </div>
 
-        <div class="col-6"id="post-display">
-            <%= render partial: "form", locals: { post: @post } %>
-            <% @posts.includes(:likes, :user).each do |post| %>
-                <%= render partial: "post", locals: { post: post, likes: post.likes } %>
-            <% end %>
+        <div class="col-6">
+            <!--Post form -->
+            <%= render partial: "form", locals: {post: @post } %>
+            <!-- Post display -->
+            <div id="post-display">
+                <% @posts.includes(:likes, :user).each do |post| %>
+                    <%= render partial: "post", locals: { post: post, likes: post.likes } %>
+                <% end %>
+            </div>
         </div>
 
         <div class="col">
