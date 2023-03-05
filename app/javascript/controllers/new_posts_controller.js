@@ -25,7 +25,6 @@ export default class extends Controller {
     }
 
     showNewPosts() {
-        console.log('hello')
         const newPosts = this.newPostsTarget
         const postDisplay = this.postDisplayTarget
         while (newPosts.firstChild) {
