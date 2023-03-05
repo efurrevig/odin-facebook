@@ -6,11 +6,18 @@
             <%= render "friends/sidebar", collection: @friends %>
         </div>
 
-        <div class="col-6">
+        <div class="col-6" data-controller="new-posts">
+            <div class="new" id="new-button">
+                <button class="new-posts-button hidden" data-new-posts-target="newPostsButton" data-action="click->new-posts#showNewPosts">New Posts</button>
+            </div>
             <!--Post form -->
             <%= render partial: "form", locals: {post: @post } %>
-            <!-- Post display -->
-            <div id="post-display">
+
+            <div id="post-display" data-new-posts-target="postDisplay">
+                <!-- Posts created after page load sit in new-post-->
+                <div id="new-posts" class="hidden" data-new-posts-target="newPosts">
+                </div>
+                <!-- Posts created before page load go in post-display -->
                 <% @posts.includes(:likes, :user).each do |post| %>
                     <%= render partial: "post", locals: { post: post, likes: post.likes } %>
                 <% end %>

@@ -13,6 +13,9 @@ application.register("friends", FriendsController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import NewPostsController from "./new_posts_controller"
+application.register("new-posts", NewPostsController)
+
 import RequestsController from "./requests_controller"
 application.register("requests", RequestsController)
 

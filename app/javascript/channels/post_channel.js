@@ -16,7 +16,7 @@ const postChannel = consumer.subscriptions.create("PostChannel", {
       const postDisplay = document.querySelector(`#post-${data.post_id}-comments`);
       postDisplay.insertAdjacentHTML('beforeend', data.html);
     } else {
-      const postDisplay = document.querySelector('#post-display');
+      const postDisplay = document.querySelector('#new-posts');
       postDisplay.insertAdjacentHTML('afterbegin', data.html);
     }
   },

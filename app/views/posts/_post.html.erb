@@ -36,16 +36,8 @@
                         <!-- fhiuehfiewufh -->
                         <% end %>
                     </div>
-                    <div class="comment-input">
-                            <%= form_with model: @comment, url: post_comments_path(post), method: "post", remote: true do |f| %>
-                                <div>
-                                    <%= f.text_field :body, class: "form-control"%>
-                                </div>
-                                <div>
-                                    <%= f.submit "Comment", class: "btn btn-primary mt-2" %>
-                                </div>
-                            <% end %>
-                    </div>
+                        <!-- create comment -->
+                    <%= render partial: "comments/form", locals: { comment: @comment, post: post }%>
                     <!-- COMMENTS END -->
                 </div>
             </div>
