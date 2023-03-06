@@ -2,10 +2,11 @@ class PostsController < ApplicationController
   def index
     @friend_ids = current_user.friends.pluck(:friend_id)
     @friend_ids << current_user.id
+    @page = params[:page] || 1
     @posts = Post.includes(:likes, :comments)
                   .where(user_id: @friend_ids)
                   .order(created_at: :desc)
-                  .page(params[:page] || 1)
+                  .page(@page)
     @friends = current_user.friends
     @post = Post.new
     @comment = Comment.new
