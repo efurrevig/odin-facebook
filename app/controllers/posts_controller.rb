@@ -1,12 +1,18 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.includes(:comments).order(created_at: :desc).all
+    @friend_ids = current_user.friends.pluck(:friend_id)
+    @friend_ids << current_user.id
+    @posts = Post.includes(:likes, :comments)
+                  .where(user_id: @friend_ids)
+                  .order(created_at: :desc)
+                  .page(params[:page] || 1)
     @friends = current_user.friends
     @post = Post.new
     @comment = Comment.new
     @like = Like.new
     @friend_request = FriendRequest.new
   end
+
 
   def like_post
     @post = Post.find(params[:id])

@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-6" data-controller="new-posts">
-            <div class="new" id="new-button">
+            <div class="fixed-button" id="new-button">
                 <button class="new-posts-button hidden" data-new-posts-target="newPostsButton" data-action="click->new-posts#showNewPosts">New Posts</button>
             </div>
             <!--Post form -->
@@ -18,9 +18,15 @@
                 <div id="new-posts" class="hidden" data-new-posts-target="newPosts">
                 </div>
                 <!-- Posts created before page load go in post-display -->
-                <% @posts.includes(:likes, :user).each do |post| %>
-                    <%= render partial: "post", locals: { post: post, likes: post.likes } %>
+                <% @posts.includes(:comments, :likes, :user).each do |post| %>
+                    <%= render partial: "post", locals: { comments: post.comments, post: post, likes: post.likes } %>
                 <% end %>
+            </div>
+
+            <div id="pagination"
+                 data-controller="pagination"
+                 data-pagination-url-value="<%= posts_url %> "
+                 data-pagination-page-value="<%= 2 %>">
             </div>
         </div>
 

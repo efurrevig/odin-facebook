@@ -24,6 +24,10 @@ export default class extends Controller {
         this.observer.observe(this.newPostsTarget, this.config);
     }
 
+    disconnect() {
+        this.observer.disconnect();
+    }
+    
     showNewPosts() {
         const newPosts = this.newPostsTarget
         const postDisplay = this.postDisplayTarget

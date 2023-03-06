@@ -19,6 +19,9 @@ application.register("hello", HelloController)
 import NewPostsController from "./new_posts_controller"
 application.register("new-posts", NewPostsController)
 
+import PaginationController from "./pagination_controller"
+application.register("pagination", PaginationController)
+
 import RequestsController from "./requests_controller"
 application.register("requests", RequestsController)
 

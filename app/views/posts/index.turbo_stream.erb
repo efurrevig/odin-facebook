@@ -1,0 +1,8 @@
+<%= turbo_stream.append "pagination" do %>
+    <% @posts.includes(:comments, :likes, :user).each do |post| %>
+        <%= render partial: "post", locals: { post: post, likes: post.likes } %>
+    <% end %>
+    <% if @posts.page(@page.to_i + 1).out_of_range? %>
+        <span class="hidden" data-pagination-target="lastPage"></span>
+    <% end %>
+<% end %>

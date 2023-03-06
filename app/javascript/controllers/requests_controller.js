@@ -4,7 +4,6 @@ export default class extends Controller {
     static targets = [ "acceptFriend", "declineFriend", "check", "x" ]
 
     connect() {
-        console.log("RequestsController connected")
     }
 
     accept() {

@@ -4,15 +4,21 @@ export default class extends Controller {
     static targets = [ "moveTopButton" ]
 
     connect() {
-        console.log('hello')
+        window.addEventListener('scroll', this.scrollHandler.bind(this));
+    }
+    
+    disconnect() {
+        window.removeEventListener('scroll', this.scrollHandler.bind(this));
+    }
+
+    scrollHandler() {
         const moveTopButton = this.moveTopButtonTarget;
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 1500) {
-                moveTopButton.classList.remove('hidden');
-            } else {
-                moveTopButton.classList.add('hidden');
-            }
-        })
+        const yOffset = window.innerHeight * 0.8;
+        if (window.pageYOffset > yOffset) {
+            moveTopButton.classList.remove('hidden');
+        } else {
+            moveTopButton.classList.add('hidden');
+        }
     }
 
     moveUserToTop() {
