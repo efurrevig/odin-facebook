@@ -1,1 +1,3 @@
-<%= render 'posts/post', collection: @posts %>
+<% @posts.includes(:comments, :likes, :user).each do |post| %>
+    <%= render partial: "posts/post", locals: { comments: post.comments, post: post, likes: post.likes } %>
+<% end %>

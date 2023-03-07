@@ -8,6 +8,7 @@ export default class extends Controller {
     };
 
     static targets = ["lastPage"];
+    
     initialize() {
         this.scroll = this.scroll.bind(this);
         this.pageValue = this.pageValue || 1;
