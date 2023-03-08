@@ -27,13 +27,14 @@
                     <hr>
                     <!-- COMMENTS -->
                     <div class="comments" id="post-<%=post.id%>-comments">
-                        <% post.comments.includes(:user, :likes).limit(20).each do |comment| %>
+                        <% post.comments.includes(:user, :likes).limit(2).each do |comment| %>
                             <%= render partial: "comments/comment", locals: { post: post, like: @like, comment: comment } %>
                             <hr>
                         <% end %>
 
                         <% if post.comments_count > 2 %>
-                        <!-- fhiuehfiewufh -->
+                            <div>
+                            </div>
                         <% end %>
                     </div>
                         <!-- create comment -->
