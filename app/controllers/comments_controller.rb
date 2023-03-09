@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
     def index
         @post = Post.find(params[:post_id])
         @page = params[:page] || 1
+        @like = Like.new
         @comments = @post.comments.includes(:user, :likes).order(created_at: :asc).page(@page)
     end
 

@@ -1,6 +1,7 @@
-<%= turbo_stream.append "#{@post.id}-comment-pagination" do %>
+<%= turbo_stream.append "#{@post.id}-comment-pagination", before: ".moreCommentsButton" do %>
     <% @comments.includes(:likes, :user).each do |comment| %>
-        <%= render partial: "comments/comment", locals: { comment: comment, post: @post, likes: comment.likes } %>
+        <%= render partial: "comments/comment", locals: { comment: comment, post: @post, likes: comment.likes, like: @like } %>
+        <hr>
     <% end %>
     <% if @comments.page(@page.to_i + 1).out_of_range? %>
         <span class="hidden" data-pagination-target="lastPage"></span>

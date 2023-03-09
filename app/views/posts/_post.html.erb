@@ -32,13 +32,14 @@
                             <hr>
                         <% end %>
 
-                        <div id="<%=post.id%>-comment-pagination"
+                        <div 
                              data-controller="comment-pagination"
                              data-comment-pagination-target="commentPagination"
                              data-comment-pagination-url-value="<%= post_comments_url(post)%>"
                              data-comment-pagination-page-value="<%= 2 %>">
                             <!-- additional comments -->
-                            <button data-comment-pagination-target="seeMoreButton">see more comments</button>
+                            <div id="<%=post.id%>-comment-pagination"></div>
+                            <button class="moreCommentsButton" data-comment-pagination-target="seeMoreButton">see more comments</button>
                         </div>
                     </div>
                         <!-- create comment -->
