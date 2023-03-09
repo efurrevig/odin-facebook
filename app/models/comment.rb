@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+  paginates_per 3
   belongs_to :post, counter_cache: true
   belongs_to :user
 

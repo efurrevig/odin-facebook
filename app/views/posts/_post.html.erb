@@ -27,15 +27,19 @@
                     <hr>
                     <!-- COMMENTS -->
                     <div class="comments" id="post-<%=post.id%>-comments">
-                        <% post.comments.includes(:user, :likes).limit(2).each do |comment| %>
+                        <% post.comments.includes(:user, :likes).order(created_at: :asc).page(1).each do |comment| %>
                             <%= render partial: "comments/comment", locals: { post: post, like: @like, comment: comment } %>
                             <hr>
                         <% end %>
 
-                        <% if post.comments_count > 2 %>
-                            <div>
-                            </div>
-                        <% end %>
+                        <div id="<%=post.id%>-comment-pagination"
+                             data-controller="comment-pagination"
+                             data-comment-pagination-target="commentPagination"
+                             data-comment-pagination-url-value="<%= post_comments_url(post)%>"
+                             data-comment-pagination-page-value="<%= 2 %>">
+                            <!-- additional comments -->
+                            <button data-comment-pagination-target="seeMoreButton">see more comments</button>
+                        </div>
                     </div>
                         <!-- create comment -->
                     <%= render partial: "comments/form", locals: { comment: @comment, post: post }%>

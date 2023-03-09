@@ -7,6 +7,9 @@ import { application } from "./application"
 import ButtonController from "./button_controller"
 application.register("button", ButtonController)
 
+import CommentPaginationController from "./comment_pagination_controller"
+application.register("comment-pagination", CommentPaginationController)
+
 import FormController from "./form_controller"
 application.register("form", FormController)
 
